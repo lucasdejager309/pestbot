@@ -1,6 +1,6 @@
 import discord, json
 
-TOKEN = 'NjM3MzM1MTQyNTgyNzE0Mzc4.XcFZHA.87n43q-aLjSDhLbybeO0Fa1p8X4'
+TOKEN = 'NjM3MzM1MTQyNTgyNzE0Mzc4.XcG9ww.le4orV8VZAvy1XnviTF375CSxms'
 client = discord.Client()
 
 @client.event
@@ -11,7 +11,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    valid_users = ["Bengelboef#6632"]
+    valid_users = ["Bengelboef#6632", "Plumboi#3141"]
 
     if message.author == client.user:
         return
@@ -25,13 +25,20 @@ async def on_message(message):
                     await message.channel.send('{} krijgt er {} strike(s) bij, en heeft er nu {}'.format(item["Name"].capitalize(), commandList[2], item["Strikes"]))
         with open('strikes.json', 'w') as file:
             json.dump(data, file, indent=4)
-    elif commandList[0] == '!add':
-        await message.channel.send('Volgens heet jij geen gijs...')
+    elif commandList[0] == '!remove' and str(message.author) in valid_users:
+        with open('strikes.json', 'r') as file:
+            data = json.load(file)
+            for item in data:
+                if item["Name"] == commandList[1].lower():
+                    item["Strikes"] -= int(commandList[2])
+                    await message.channel.send('{} krijgt {} strike(s) minder, en heeft er nu {}'.format(item["Name"].capitalize(), commandList[2], item["Strikes"]))
+        with open('strikes.json', 'w') as file:
+            json.dump(data, file, indent=4)
     elif commandList[0] == '!rank':
         with open('strikes.json', 'r') as file:
             data = json.load(file)
             sortedData = sorted(data, key=lambda item: item["Strikes"], reverse=True)
             for item in sortedData:
-                await message.channel.send('{}: {}'.format(item["Name"].capitalize(), item["Strikes"]))
+                await message.channel.send('{}: {}'.format(item["Name"], item["Strikes"]))
 
 client.run(TOKEN)
