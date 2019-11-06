@@ -1,6 +1,6 @@
 import discord, json
 
-TOKEN = 'NjM3MzM1MTQyNTgyNzE0Mzc4.XcG9ww.le4orV8VZAvy1XnviTF375CSxms'
+TOKEN = 'YEET'
 client = discord.Client()
 
 @client.event
@@ -11,7 +11,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    valid_users = ["Bengelboef#6632", "Plumboi#3141"]
+    valid_users = ["Bengelboef#6632"]
 
     if message.author == client.user:
         return
@@ -39,6 +39,6 @@ async def on_message(message):
             data = json.load(file)
             sortedData = sorted(data, key=lambda item: item["Strikes"], reverse=True)
             for item in sortedData:
-                await message.channel.send('{}: {}'.format(item["Name"], item["Strikes"]))
+                await message.channel.send('{}: {}'.format(item["Name"].capitalize(), item["Strikes"]))
 
 client.run(TOKEN)
