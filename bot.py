@@ -40,5 +40,7 @@ async def on_message(message):
             sortedData = sorted(data, key=lambda item: item["Strikes"], reverse=True)
             for item in sortedData:
                 await message.channel.send('{}: {}'.format(item["Name"].capitalize(), item["Strikes"]))
+    elif commandList[0] == '!add' or '!remove' and str(message.author) not in valid_users:
+        await message.channel.send('Volgens mij heet jij geen Gijs...')
 
 client.run(TOKEN)
