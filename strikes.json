@@ -1,22 +1,37 @@
 [
     {
         "Name": "lucas",
-        "Strikes": 5
+        "DiscordID": "<@!282470436544053268>",
+        "Strikes": []
     },
     {
-        "Name": "sietse",
-        "Strikes": 4
-    },
-    {
-        "Name": "rob",
-        "Strikes": 2
-    },
-    {
-        "Name": "daan",
-        "Strikes": 7
+        "Name": "gijs",
+        "DiscordID": "<@!292617245652418563>",
+        "Strikes": []
     },
     {
         "Name": "thijs",
-        "Strikes": 0
+        "DiscordID": "<@!411178320940498945>",
+        "Strikes": []
+    },
+    {
+        "Name": "sietse",
+        "DiscordID": "<@!489504335420719104>",
+        "Strikes": []
+    },
+    {
+        "Name": "maarten",
+        "DiscordID": "<@!524676979165757443>",
+        "Strikes": []
+    },
+    {
+        "Name": "daan",
+        "DiscordID": "<@!372784261909970964>",
+        "Strikes": []
+    },
+    {
+        "Name": "rob",
+        "DiscordID": "<@!397023496242331649>",
+        "Strikes": []
     }
 ]
