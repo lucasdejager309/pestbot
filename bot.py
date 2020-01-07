@@ -1,7 +1,7 @@
 import json, discord
 from datetime import datetime
 
-TOKEN = 'NjM3MzM1MTQyNTgyNzE0Mzc4.XfaFug.GN7X4eMIUcMrkAmMEq10lFBDQUM'
+TOKEN = 'NjM3MzM1MTQyNTgyNzE0Mzc4.XhIzUw.ya-R_UIdjnBVMzpB_qxu-6c4EXQ'
 client = discord.Client()
 global lastReaction
 lastReaction = None
@@ -33,13 +33,14 @@ async def on_message(message):
         #executes vote command on '!jankerd'
         if commandList[0].lower() == '!jankerd' and str(message.author) in valid_users:
 
-            #counts number of people in given voice channel
+            #gets members in voice channel
             voice_channel = client.get_channel(527919083618828288)
             members = voice_channel.members
             #makes sure bots arent counted
-            for member in members:
+            """for member in members:
                 if member.bot == True:
-                    members.remove(member)
+                    members.remove(member)"""
+            #counts number of people in voice channel
             numberOfMembers = len(members)
 
             if numberOfMembers < 2:
@@ -48,7 +49,8 @@ async def on_message(message):
             else:
                 global votesRequired
                 votesRequired = round(numberOfMembers/2)+1
-                vote = await message.channel.send('{} noemt {} een jankerd om de rede \'{}\', vind je dit terecht, stem dan hieronder. er zijn {} stemmen nodig.'.format(message.author.display_name, commandList[1], commandList[2], votesRequired))
+                vote = await message.channel.send('{} noemt {} een jankerd om de rede \'{}\', vind je dit terecht, stem dan hieronder.\n'
+                                                  'Er zijn {} stemmen nodig.'.format(message.author.display_name, commandList[1], commandList[2], votesRequired))
                 await vote.add_reaction('⬆')
                 await vote.add_reaction('⬇')
                 global lastVote

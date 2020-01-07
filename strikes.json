@@ -2,7 +2,14 @@
     {
         "Name": "lucas",
         "DiscordID": "<@!282470436544053268>",
-        "Strikes": []
+        "Strikes": [
+            {
+                "StrikeID": 1,
+                "Reason": "test1",
+                "Date": "07/01/2020",
+                "Time": "13:06:32"
+            }
+        ]
     },
     {
         "Name": "gijs",
