@@ -8,13 +8,32 @@
                 "Reason": "test1",
                 "Date": "07/01/2020",
                 "Time": "13:06:32"
+            },
+            {
+                "StrikeID": 2,
+                "Reason": "test",
+                "Date": "09/01/2020",
+                "Time": "15:59:12"
+            },
+            {
+                "StrikeID": 3,
+                "Reason": "test",
+                "Date": "09/01/2020",
+                "Time": "16:06:15"
             }
         ]
     },
     {
         "Name": "gijs",
         "DiscordID": "<@!292617245652418563>",
-        "Strikes": []
+        "Strikes": [
+            {
+                "StrikeID": 1,
+                "Reason": "the usual",
+                "Date": "09/01/2020",
+                "Time": "16:06:50"
+            }
+        ]
     },
     {
         "Name": "thijs",

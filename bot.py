@@ -1,14 +1,14 @@
 import json, discord
 from datetime import datetime
 
-TOKEN = 'NjM3MzM1MTQyNTgyNzE0Mzc4.XhIzUw.ya-R_UIdjnBVMzpB_qxu-6c4EXQ'
+TOKEN = 'TOKEN'
 client = discord.Client()
 global lastReaction
 lastReaction = None
 
 @client.event
 async def on_ready():
-    activity = discord.Activity(name='niet-pesten-januari', type=discord.ActivityType.playing)
+    activity = discord.Activity(name='niet-janken-januari', type=discord.ActivityType.playing)
     await client.change_presence(activity=activity)
     print("The bot is ready!")
 
@@ -32,6 +32,12 @@ async def on_message(message):
 
         #executes vote command on '!jankerd'
         if commandList[0].lower() == '!jankerd' and str(message.author) in valid_users:
+
+            #resets votes
+            global votes
+            votes = 1
+            global tegenVotes
+            tegenVotes = 1
 
             #gets members in voice channel
             voice_channel = client.get_channel(527919083618828288)
@@ -101,12 +107,12 @@ async def on_message(message):
 @client.event
 async def on_reaction_add(reaction, user):
     channel = reaction.message.channel
-    votes = 1
-    tegenVotes = 1
     if user != client.user:
-        #await channel.send('{} added {}'.format(user.display_name, reaction.emoji))
+        print('{} added {}'.format(user.display_name, reaction.emoji))
         if reaction.message.content == lastVote and reaction.emoji == '⬆':
+            global votes
             votes += 1
+            print(votes)
             if votes == votesRequired:
                 await reaction.message.delete()
 
@@ -127,6 +133,7 @@ async def on_reaction_add(reaction, user):
                     json.dump(data, file, indent=4)
 
         elif reaction.emoji == '⬇':
+            global tegenVotes
             tegenVotes +=1
             if tegenVotes == votesRequired:
                 await channel.send('vote not passed: {} om de reden \'{}\'.'.format(commandList[1], commandList[2]))
