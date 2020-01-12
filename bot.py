@@ -1,7 +1,7 @@
 import json, discord
 from datetime import datetime
 
-TOKEN = 'TOKEN'
+TOKEN = 'token'
 client = discord.Client()
 global lastReaction
 lastReaction = None
@@ -28,16 +28,13 @@ async def on_message(message):
         global commandList
         commandList = message.content.split(' ', 2 )
         print(commandList)
-        server = discord.Guild.id
 
         #executes vote command on '!jankerd'
         if commandList[0].lower() == '!jankerd' and str(message.author) in valid_users:
-
-            #resets votes
-            global votes
-            votes = 1
-            global tegenVotes
-            tegenVotes = 1
+            global voters
+            voters = list()
+            global tegenVoters
+            tegenVoters = list()
 
             #gets members in voice channel
             voice_channel = client.get_channel(527919083618828288)
@@ -56,7 +53,7 @@ async def on_message(message):
                 global votesRequired
                 votesRequired = round(numberOfMembers/2)+1
                 vote = await message.channel.send('{} noemt {} een jankerd om de rede \'{}\', vind je dit terecht, stem dan hieronder.\n'
-                                                  'Er zijn {} stemmen nodig.'.format(message.author.display_name, commandList[1], commandList[2], votesRequired))
+                                                  'Een van de tellers hieronder moet {} stemmen raken.'.format(message.author.display_name, commandList[1], commandList[2], votesRequired))
                 await vote.add_reaction('⬆')
                 await vote.add_reaction('⬇')
                 global lastVote
@@ -110,10 +107,11 @@ async def on_reaction_add(reaction, user):
     if user != client.user:
         print('{} added {}'.format(user.display_name, reaction.emoji))
         if reaction.message.content == lastVote and reaction.emoji == '⬆':
-            global votes
-            votes += 1
-            print(votes)
-            if votes == votesRequired:
+            if user not in voters:
+                voters.append(user)
+            print(voters)
+            print(len(voters))
+            if len(voters) == votesRequired:
                 await reaction.message.delete()
 
                 #add strike to json file
@@ -133,9 +131,9 @@ async def on_reaction_add(reaction, user):
                     json.dump(data, file, indent=4)
 
         elif reaction.emoji == '⬇':
-            global tegenVotes
-            tegenVotes +=1
-            if tegenVotes == votesRequired:
+            if user not in tegenVoters:
+                tegenVoters.append(user)
+            if len(tegenVoters) == votesRequired:
                 await channel.send('vote not passed: {} om de reden \'{}\'.'.format(commandList[1], commandList[2]))
                 await reaction.message.delete()
 
